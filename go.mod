@@ -1,4 +1,4 @@
-module gitbub.com/andreibuiciuc/qr
+module github.com/andreibuiciuc/qr
 
 go 1.20
 
