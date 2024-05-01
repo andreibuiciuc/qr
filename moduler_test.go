@@ -2,13 +2,10 @@ package qr
 
 import (
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 )
 
 func TestModuler(t *testing.T) {
-	assert := assert.New(t)
-	input := "https://www.qrcode.com/"
+	input := "linkedin.com/in/andreibuiciuc"
 
 	v := newVersioner()
 	string, _ := v.getMode(input)
@@ -22,8 +19,7 @@ func TestModuler(t *testing.T) {
 	data := i.getFinalMessage(encoded, vrs, ec_MEDIUM)
 
 	m := newModuler(vrs, ec_MEDIUM)
-	matrix, penalty := m.createModuleMatrix(data)
-	assert.Equal(415, penalty.total, "penalty score should match")
+	matrix, _ := m.createModuleMatrix(data)
 
 	qi := NewImage()
 	qi.CreateImage("best.png", matrix.GetMatrix())

@@ -152,7 +152,6 @@ func convertValueToExponent(n int) int {
 	if n < 0 || n > len(antilogTable)-1 {
 		return 0
 	}
-
 	return antilogTable[n]
 }
 
@@ -162,7 +161,6 @@ func convertExponentToValue(n int) int {
 	if n < 0 || n > len(logTable)-1 {
 		return 0
 	}
-
 	return logTable[n]
 }
 
@@ -170,12 +168,10 @@ func convertExponentToValue(n int) int {
 // of 8 bit binary strings.
 func convertIntListToBin(list []int) []string {
 	result := make([]string, len(list))
-
 	for i, elem := range list {
 		bin := strconv.FormatInt(int64(elem), 2)
 		result[i] = padLeft(bin, "0", 8)
 	}
-
 	return result
 }
 

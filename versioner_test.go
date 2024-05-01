@@ -148,18 +148,18 @@ func TestGetCountIndicator(t *testing.T) {
 	input = "HELLO WORLD"
 	string, _ := v.getMode(input)
 	int, _ := v.getVersion(input, string, ec_QUARTILE)
-	actual, _ := v.getCountIndicator(input, int, string)
+	actual := v.getCountIndicator(input, int, string)
 	assert.Equal("000001011", actual, "Input should match binary representation")
 
 	input = "1234"
 	string, _ = v.getMode(input)
 	int, _ = v.getVersion(input, string, ec_HIGH)
-	actual, _ = v.getCountIndicator(input, int, string)
+	actual = v.getCountIndicator(input, int, string)
 	assert.Equal("0000000100", actual, "Input should match binary representation")
 
 	input = "Hello and welcome!"
 	string, _ = v.getMode(input)
 	int, _ = v.getVersion(input, string, ec_QUARTILE)
-	actual, _ = v.getCountIndicator(input, int, string)
+	actual = v.getCountIndicator(input, int, string)
 	assert.Equal("00010010", actual, "Input should match binary representation")
 }

@@ -123,11 +123,7 @@ func (e *encoder) encode(s string, lvl rune) (string, error) {
 		return "", fmt.Errorf("error on computing the encoding int: %v", err)
 	}
 
-	countIndicator, err := v.getCountIndicator(s, int, m)
-	if err != nil {
-		return "", fmt.Errorf("error on computing the encoding count indicator: %v", err)
-	}
-
+	countIndicator := v.getCountIndicator(s, int, m)
 	encodedInput := e.encodeInput(s, string(m))
 
 	return string(mi) + countIndicator + encodedInput, nil

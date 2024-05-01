@@ -89,39 +89,45 @@ func newVersioner() *versioner {
 }
 
 func (v *versioner) getMode(s string) (string, error) {
-	if matched, _ := regexp.MatchString(qrModeRegexes[mode_NUMERIC], s); matched {
+	matched, err := regexp.MatchString(qrModeRegexes[mode_NUMERIC], s)
+	if err != nil {
+		return "", err
+	} else if matched {
 		return mode_NUMERIC, nil
 	}
 
-	if matched, _ := regexp.MatchString(qrModeRegexes[mode_ALPHANUMERIC], s); matched {
+	matched, err = regexp.MatchString(qrModeRegexes[mode_ALPHANUMERIC], s)
+	if err != nil {
+		return "", err
+	} else if matched {
 		return mode_ALPHANUMERIC, nil
 	}
 
-	if matched, _ := regexp.MatchString(qrModeRegexes[mode_BYTE], s); matched {
+	matched, err = regexp.MatchString(qrModeRegexes[mode_BYTE], s)
+	if err != nil {
+		return "", err
+	} else if matched {
 		return mode_BYTE, nil
 	}
-
 	return string(""), fmt.Errorf("invalid input pattern")
 }
 
 func (v *versioner) getVersion(s string, mode string, lvl rune) (int, error) {
-	ver := 1
-
-	for ver <= len(qrCapacities) {
-		if len(s) <= qrCapacities[int(ver)][lvl][qrModeIndices[mode]] {
-			return int(ver), nil
+	version := 1
+	for version <= len(qrCapacities) {
+		if len(s) <= qrCapacities[version][lvl][qrModeIndices[mode]] {
+			return int(version), nil
 		}
-		ver += 1
+		version += 1
 	}
-
-	return int(-1), fmt.Errorf("cannot compute qr int")
+	return 0, fmt.Errorf("cannot compute qr int")
 }
 
 func (v *versioner) getModeIndicator(mode string) string {
 	return qrModeIndicators[mode]
 }
 
-func (v *versioner) getCountIndicator(s string, vrs int, string string) (string, error) {
+func (v *versioner) getCountIndicator(s string, vrs int, string string) string {
 	sLenBin := strconv.FormatInt(int64(len(s)), 2)
-	return padLeft(sLenBin, "0", qrCountIndLengths[string]), nil
+	return padLeft(sLenBin, "0", qrCountIndLengths[string])
 }
